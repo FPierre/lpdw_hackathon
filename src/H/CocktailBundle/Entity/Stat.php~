@@ -21,12 +21,26 @@ class Stat
 	 */
 	private $id;
 
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="approved", type="boolean")
-	 */
-	private $approved;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="approved", type="integer")
+     */
+    private $approved;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="score", type="integer")
+     */
+    private $score;
+
+    /**
+     * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cocktail;
+
 
 	/**
 	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Color", cascade={"persist"})
@@ -55,29 +69,6 @@ class Stat
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	/**
-	 * Set approved
-	 *
-	 * @param boolean $approved
-	 * @return Stat
-	 */
-	public function setApproved($approved)
-	{
-		$this->approved = $approved;
-
-		return $this;
-	}
-
-	/**
-	 * Get approved
-	 *
-	 * @return boolean
-	 */
-	public function getApproved()
-	{
-		return $this->approved;
 	}
 
     /**
@@ -147,5 +138,51 @@ class Stat
     public function getAge()
     {
         return $this->age;
+    }
+
+    /**
+     * Set score
+     *
+     * @param integer $score
+     * @return Stat
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Get score
+     *
+     * @return integer
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+
+    /**
+     * Set approved
+     *
+     * @param integer $approved
+     * @return Stat
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return integer
+     */
+    public function getApproved()
+    {
+        return $this->approved;
     }
 }
