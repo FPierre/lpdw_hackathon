@@ -14,9 +14,6 @@ class Cocktails implements FixtureInterface
     {
 
         $AllCocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
-
-
-        $colors = array('#a66bbe', '#008da3', '#e97b7d', '#b14151');
         foreach ($AllCocktails as $name => $oneCocktail) {
 
             $cocktail = new Cocktail();
@@ -24,26 +21,6 @@ class Cocktails implements FixtureInterface
             $cocktail->setcomment('Lorem');
 
             $manager->persist($cocktail);
-
-            foreach ($oneCocktail as $theIngredient => $theProp) {
-
-                $ingredient = new Ingredient();
-                $ingredient->setName($theIngredient);
-
-                $i = rand(0,3);
-                $ingredient->setColor($colors[$i]);
-
-                $manager->persist($ingredient);
-
-                $cocktailIngredient = new CocktailIngredient();
-                $cocktailIngredient->setProportion($theProp);
-
-                $cocktailIngredient->setCocktail($cocktail);
-                $cocktailIngredient->setIngredient($ingredient);
-
-                //$manager->persist($cocktailIngredient);
-
-            }
 
         }
 
@@ -75,7 +52,7 @@ class Cocktails implements FixtureInterface
         foreach ($allDatas as $key => $oneData) {
 
             if($oneData['nom'] != ''){
-                $name = $oneData['nom'];
+                $name = ucfirst($oneData['nom']);
                 $result[$name] = array();
                 $result[$name][$oneData['ingrédients']] = $oneData['proportions'];
                 //$result[$name]['proportion'][] = $oneData['proportions'];
