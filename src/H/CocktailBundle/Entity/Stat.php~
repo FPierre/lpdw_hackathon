@@ -35,6 +35,13 @@ class Stat
      */
     private $score;
 
+    /**
+     * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cocktail;
+
+
 	/**
 	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Color", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
@@ -154,5 +161,28 @@ class Stat
     public function getScore()
     {
         return $this->score;
+    }
+
+    /**
+     * Set approved
+     *
+     * @param integer $approved
+     * @return Stat
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return integer
+     */
+    public function getApproved()
+    {
+        return $this->approved;
     }
 }
