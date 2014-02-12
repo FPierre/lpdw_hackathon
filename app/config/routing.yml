@@ -2,3 +2,6 @@ h_cocktail:
     resource: "@HCocktailBundle/Resources/config/routing.yml"
     prefix:   /
 
+HCocktailBundle:
+    resource: "@HCocktailBundle/Controller"
+    type: annotation
