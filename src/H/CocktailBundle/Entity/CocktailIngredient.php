@@ -50,36 +50,38 @@ class CocktailIngredient
 		return $this->id;
 	}
 
-	/**
-	 * Set proportion
-	 *
-	 * @param integer $proportion
-	 * @return CocktailIngredient
-	 */
-	public function setProportion($proportion)
-	{
-		$this->proportion = $proportion;
+	
 
-		return $this;
-	}
+    /**
+     * Set proportion
+     *
+     * @param integer $proportion
+     * @return CocktailIngredient
+     */
+    public function setProportion($proportion)
+    {
+        $this->proportion = $proportion;
 
-	/**
-	 * Get proportion
-	 *
-	 * @return integer
-	 */
-	public function getProportion()
-	{
-		return $this->proportion;
-	}
+        return $this;
+    }
+
+    /**
+     * Get proportion
+     *
+     * @return integer 
+     */
+    public function getProportion()
+    {
+        return $this->proportion;
+    }
 
     /**
      * Set cocktail
      *
-     * @param \H\CocktailBundle\Cocktail $cocktail
+     * @param \H\CocktailBundle\Entity\Cocktail $cocktail
      * @return CocktailIngredient
      */
-    public function setCocktail(\H\CocktailBundle\Cocktail $cocktail)
+    public function setCocktail(\H\CocktailBundle\Entity\Cocktail $cocktail)
     {
         $this->cocktail = $cocktail;
 
@@ -89,7 +91,7 @@ class CocktailIngredient
     /**
      * Get cocktail
      *
-     * @return \H\CocktailBundle\Cocktail
+     * @return \H\CocktailBundle\Entity\Cocktail 
      */
     public function getCocktail()
     {
@@ -99,10 +101,10 @@ class CocktailIngredient
     /**
      * Set ingredient
      *
-     * @param \H\CocktailBundle\Ingredient $ingredient
+     * @param \H\CocktailBundle\Entity\Ingredient $ingredient
      * @return CocktailIngredient
      */
-    public function setIngredient(\H\CocktailBundle\Ingredient $ingredient)
+    public function setIngredient(\H\CocktailBundle\Entity\Ingredient $ingredient)
     {
         $this->ingredient = $ingredient;
 
@@ -112,7 +114,7 @@ class CocktailIngredient
     /**
      * Get ingredient
      *
-     * @return \H\CocktailBundle\Ingredient
+     * @return \H\CocktailBundle\Entity\Ingredient 
      */
     public function getIngredient()
     {
