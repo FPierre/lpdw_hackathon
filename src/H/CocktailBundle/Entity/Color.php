@@ -28,6 +28,13 @@ class Color
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=7)
+     */
+    private $code;
+
 
     /**
      * Get id
@@ -60,5 +67,28 @@ class Color
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Color
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }
