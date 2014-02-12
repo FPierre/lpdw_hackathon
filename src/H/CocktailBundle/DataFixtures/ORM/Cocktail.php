@@ -13,8 +13,8 @@ class Cocktails implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         // Cocktails
-        $AllCocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
-        //$AllCocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        //$AllCocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        $AllCocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
         foreach ($AllCocktails as $name => $oneCocktail) {
 
             $cocktail = new Cocktail();
