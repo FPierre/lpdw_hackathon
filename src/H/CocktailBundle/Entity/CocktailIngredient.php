@@ -29,13 +29,13 @@ class CocktailIngredient
 	private $proportion;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $cocktail;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Ingredient", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Ingredient", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $ingredient;
@@ -50,7 +50,7 @@ class CocktailIngredient
 		return $this->id;
 	}
 
-	
+
 
     /**
      * Set proportion
@@ -68,7 +68,7 @@ class CocktailIngredient
     /**
      * Get proportion
      *
-     * @return integer 
+     * @return integer
      */
     public function getProportion()
     {
@@ -91,7 +91,7 @@ class CocktailIngredient
     /**
      * Get cocktail
      *
-     * @return \H\CocktailBundle\Entity\Cocktail 
+     * @return \H\CocktailBundle\Entity\Cocktail
      */
     public function getCocktail()
     {
@@ -114,7 +114,7 @@ class CocktailIngredient
     /**
      * Get ingredient
      *
-     * @return \H\CocktailBundle\Entity\Ingredient 
+     * @return \H\CocktailBundle\Entity\Ingredient
      */
     public function getIngredient()
     {
