@@ -12,8 +12,11 @@ class Cocktails implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
         $AllCocktails = $this->csvToArray('/var/www/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        // Cocktails
+        //$AllCocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        //$AllCocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+
         foreach ($AllCocktails as $name => $oneCocktail) {
 
             $cocktail = new Cocktail();
@@ -22,6 +25,55 @@ class Cocktails implements FixtureInterface
 
             $manager->persist($cocktail);
 
+        }
+
+        $manager->flush();
+
+        // Ingredients
+        $colors = array('#a66bbe', '#008da3', '#e97b7d', '#b14151');
+        foreach ($AllCocktails as $name => $oneCocktail) {
+
+            $cocktail = new Cocktail();
+            $cocktail->setName($name);
+            $cocktail->setcomment('Lorem');
+
+            foreach ($oneCocktail as $theIngredient => $theProp) {
+
+                $ma = $manager->getRepository('HCocktailBundle:Ingredient');
+                $ingredient = $ma->findOneByName($theIngredient);
+
+                if (!$ingredient) {
+                    $ingredient = new Ingredient();
+                    $ingredient->setName($theIngredient);
+
+                    $i = rand(0,3);
+                    $ingredient->setColor($colors[$i]);
+                    $manager->persist($ingredient);
+
+                    $manager->flush();
+                }
+            }
+        }
+
+        // CocktailIngredients
+        foreach ($AllCocktails as $name => $oneCocktail) {
+
+            $ma = $manager->getRepository('HCocktailBundle:Cocktail');
+            $cocktail = $ma->findOneByName($name);
+
+            foreach ($oneCocktail as $theIngredient => $theProp) {
+
+                $mi = $manager->getRepository('HCocktailBundle:Ingredient');
+                $ingredient = $mi->findOneByName($theIngredient);
+
+                $ci = new CocktailIngredient();
+                $ci->setCocktail($cocktail);
+                $ci->setIngredient($ingredient);
+
+                $ci->setProportion($theProp);
+
+                $manager->persist($ci);
+            }
         }
 
         $manager->flush();
@@ -54,10 +106,10 @@ class Cocktails implements FixtureInterface
             if($oneData['nom'] != ''){
                 $name = ucfirst($oneData['nom']);
                 $result[$name] = array();
-                $result[$name][$oneData['ingrédients']] = $oneData['proportions'];
+                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0);
                 //$result[$name]['proportion'][] = $oneData['proportions'];
             }else{
-                $result[$name][$oneData['ingrédients']] = $oneData['proportions'];
+                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0);
             }
 
         }
