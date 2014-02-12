@@ -1,0 +1,7 @@
+parameters:
+#    h_cocktail.example.class: H\CocktailBundle\Example
+
+services:
+#    h_cocktail.example:
+#        class: %h_cocktail.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
