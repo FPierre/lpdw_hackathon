@@ -53,8 +53,14 @@ class StatController extends Controller
             $entity->setApproved(0);
             $entity->setScore(0);
 
-            $em->persist($entity);
-            $em->flush();
+            //$em->persist($entity);
+            //$em->flush();
+
+            $this->algorithm(
+                $entity->getColor(),
+                $entity->getAge(),
+                $entity->getLangage()
+            );
 
             return $this->redirect($this->generateUrl('stat_show', array(
                 'id' => $entity->getId()
@@ -65,6 +71,43 @@ class StatController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         );
+    }
+
+    public function algorithm($color, $age, $langage)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $cocktailsColor = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+            'color' => $color->getId(),
+        ));
+        $cocktailsAge = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+            'age' => $age->getId(),
+        ));
+        $cocktailsLangage = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+            'langage' => $langage->getId(),
+        ));
+
+        $cocktailsColorId = array();
+
+        foreach ($cocktailsColor as $cocktail) {
+            $cocktailsColorId []= $cocktail->getId();
+        }
+
+        $cocktailsAgeId = array();
+
+        foreach ($cocktailsAge as $cocktail) {
+            $cocktailsAgeId []= $cocktail->getId();
+        }
+
+        $cocktailsLangageId = array();
+
+        foreach ($cocktailsLangage as $cocktail) {
+            $cocktailsLangageId []= $cocktail->getId();
+        }
+
+        $cocktails = array_intersect_assoc($cocktailsColorId, $cocktailsAgeId, $cocktailsLangageId);
+
+        var_dump($cocktails);
     }
 
     /**
