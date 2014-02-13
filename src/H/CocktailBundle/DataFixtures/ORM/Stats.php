@@ -19,11 +19,10 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
         $langages  = $manager->getRepository('HCocktailBundle:Langage')->findAll();
         $cocktails = $manager->getRepository('HCocktailBundle:Cocktail')->findAll();
         
-        //var_dump($ages[0]->getId());
+        foreach ($cocktails as $cocktail) {
 
-        // exit(0);
+            var_dump($cocktail->getName());
 
-        foreach ($cocktails as $cocktail) { var_dump($cocktail->getName());
             $randomColor   = $colors[array_rand($colors)];
             $newColor      = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());
 
@@ -46,10 +45,17 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
                     $memory = $count;
                     $theLanguage = $oneLanguage;
                 }
+
             }
 
+            if($theLanguage == ''){
+                $randomLanguage   = $langages[array_rand($langages)];
+                $theLanguage = $manager->getRepository('HCocktailBundle:Langage')->find($randomLanguage->getId());
+            }
+            var_dump($theLanguage);
+
             // nom Ingredient
-            $newStat       = new Stat();
+            $newStat = new Stat();
             $newStat->setColor($newColor);
             $newStat->setAge($newAge);
             $newStat->setLangage($theLanguage);
