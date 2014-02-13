@@ -28,14 +28,9 @@ class IngredientController extends Controller
     public function indexAction()
     {
         function getGoogleImage($query) {
-            // The request also includes the userip parameter which provides the end
-            // user's IP address. Doing so will help distinguish this legitimate
-            // server-side traffic from traffic which doesn't come from an end-user.
             $url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" . $query .
                 "&userip=194.167.235.232&imgc=color&as_filetype=jpg&imgsz=small|medium";
 
-            // sendRequest
-            // note how referer is set manually
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
