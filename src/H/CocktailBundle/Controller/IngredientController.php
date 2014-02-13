@@ -27,9 +27,127 @@ class IngredientController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        function getGoogleImage($query) {
+            // The request also includes the userip parameter which provides the end
+            // user's IP address. Doing so will help distinguish this legitimate
+            // server-side traffic from traffic which doesn't come from an end-user.
+            $url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" . $query .
+                "&userip=194.167.235.232&imgc=color&as_filetype=jpg&imgsz=small|medium";
 
+            // sendRequest
+            // note how referer is set manually
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_REFERER, 'http://google.com/');
+            $body = curl_exec($ch);
+            curl_close($ch);
+
+            $json = json_decode($body);
+
+            if ($json) {
+                $imageUrl = $json->responseData->results[0]->url;
+                //echo '<img src="'.$imageUrl.'" />';
+            } else {
+                return false;
+            }
+
+            return $imageUrl;
+        }
+
+        function getResource($url)
+        {
+            preg_match('/\.[^.]*$/', $url, $matches);
+            $ext = $matches[0];
+
+            if ($ext == '.jpg' | $ext == '.jpeg') {
+                $image = @imagecreatefromjpeg($url);
+            } else if ($ext == '.png') {
+                $image = @imagecreatefrompng($url);
+            } else if ($ext == '.gif') {
+                $image = @imagecreatefromgif($url);
+            } else {
+                return false;
+            }
+
+            return $image;
+        }
+
+        function averageColor($image)
+        {
+            $width = imagesx($image);
+            $height = imagesy($image);
+
+            $pixel = imagecreatetruecolor(1, 1);
+            imagecopyresampled($pixel, $image, 0, 0, 0, 0, 1, 1, $width, $height);
+            $rgb = imagecolorat($pixel, 0, 0);
+            $color = imagecolorsforindex($pixel, $rgb);
+
+            return $color;
+        }
+
+        function toRgb($color) {
+            $rgb = 'rgb(' . $color['red'] . ',' . $color['green'] . ',' . $color['blue'] . ')';
+
+            return $rgb;
+        }
+
+        function toHex($R, $G, $B){
+            $R=dechex($R);
+            If (strlen($R)<2)
+            $R='0'.$R;
+
+            $G=dechex($G);
+            If (strlen($G)<2)
+            $G='0'.$G;
+
+            $B=dechex($B);
+            If (strlen($B)<2)
+            $B='0'.$B;
+
+            return '#' . $R . $G . $B;
+        }
+
+        function getMainColor($search) {
+
+            $q = urlencode($search);
+            $url = getGoogleImage($q);
+
+            if ($url) {
+                $res = getResource($url);
+            } else {
+                $hex = '#';
+            }
+
+            if ($res) {
+                $color = averageColor($res);
+                if ($color) {
+                     //$rgb = $this->toRgb($color);
+                     $hex = toHex($color['red'], $color['green'], $color['blue']);
+                } else {
+                    $hex = '#000';
+                }
+            } else {
+                $hex = '#fff';
+            }
+
+            // echo '<p style="background-color: ' . $rgb . ';">' . $hex . '</p>';
+            return $hex;
+        }
+
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('HCocktailBundle:Ingredient')->findAll();
+
+        $i = array();
+        foreach ($entities as $e) {
+            $name = $e->getName();
+            $i[$name] = getMainColor($name);
+        }
+
+        var_dump($i);
+
+        file_put_contents("ingredientColor.json",json_encode($i));
+        die();
 
         return array(
             'entities' => $entities,
