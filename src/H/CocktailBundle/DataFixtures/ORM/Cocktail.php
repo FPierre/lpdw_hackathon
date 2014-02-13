@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use H\CocktailBundle\Entity\Cocktail;
 use H\CocktailBundle\Entity\Ingredient;
 use H\CocktailBundle\Entity\CocktailIngredient;
+use H\CocktailBundle\Entity\Color;
 
 class Cocktails implements FixtureInterface, OrderedFixtureInterface
 {
@@ -15,8 +16,10 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
     {
 
         //$cocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
-        //$cocktails = $this->csvToArray('/var/www/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        $cocktails = $this->csvToArray('/var/www/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
         //$cocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+
+        $colors = $manager->getRepository('HCocktailBundle:Color')->findAll();
 
         // Cocktail & Ingredient
         foreach ($cocktails as $name => $c) {
@@ -24,6 +27,8 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
             $cocktail = new Cocktail();
             $cocktail->setName($name);
             $cocktail->setcomment('Lorem');
+
+            $manager->persist($cocktail);
 
             foreach ($c as $ingredientName => $proportion) {
 
@@ -35,8 +40,11 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
                     $ingredient = new Ingredient();
                     $ingredient->setName($ingredientName);
 
-                    $color = $this->getMainColor($ingredientName);
-                    $ingredient->setColor($color);
+                    $randomColor = $colors[array_rand($colors)];
+                    $newColor    = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());
+
+                    // $color = $this->getMainColor($ingredientName);
+                    $ingredient->setColor($newColor->getName());
 
                     //echo $color . ' ' . $ingredientName . ' - ';
 
@@ -49,7 +57,6 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
 
         // CocktailIngredient
         foreach ($cocktails as $name => $c) {
-
             $em = $manager->getRepository('HCocktailBundle:Cocktail');
             $cocktail = $em->findOneByName($name);
 
@@ -209,6 +216,6 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1; 
+        return 2; 
     }
 }
