@@ -37,10 +37,8 @@ class Stat
 
     /**
      * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $cocktail;
-
 
 	/**
 	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Color", cascade={"persist"})
@@ -72,72 +70,26 @@ class Stat
 	}
 
     /**
-     * Set color
+     * Set approved
      *
-     * @param \H\CocktailBundle\Color $color
+     * @param integer $approved
      * @return Stat
      */
-    public function setColor(\H\CocktailBundle\Color $color)
+    public function setApproved($approved)
     {
-        $this->color = $color;
+        $this->approved = $approved;
 
         return $this;
     }
 
     /**
-     * Get color
+     * Get approved
      *
-     * @return \H\CocktailBundle\Color
+     * @return integer 
      */
-    public function getColor()
+    public function getApproved()
     {
-        return $this->color;
-    }
-
-    /**
-     * Set langage
-     *
-     * @param \H\CocktailBundle\Langage $langage
-     * @return Stat
-     */
-    public function setLangage(\H\CocktailBundle\Langage $langage)
-    {
-        $this->langage = $langage;
-
-        return $this;
-    }
-
-    /**
-     * Get langage
-     *
-     * @return \H\CocktailBundle\Langage
-     */
-    public function getLangage()
-    {
-        return $this->langage;
-    }
-
-    /**
-     * Set age
-     *
-     * @param \H\CocktailBundle\Age $age
-     * @return Stat
-     */
-    public function setAge(\H\CocktailBundle\Age $age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return \H\CocktailBundle\Age
-     */
-    public function getAge()
-    {
-        return $this->age;
+        return $this->approved;
     }
 
     /**
@@ -156,34 +108,11 @@ class Stat
     /**
      * Get score
      *
-     * @return integer
+     * @return integer 
      */
     public function getScore()
     {
         return $this->score;
-    }
-
-    /**
-     * Set approved
-     *
-     * @param integer $approved
-     * @return Stat
-     */
-    public function setApproved($approved)
-    {
-        $this->approved = $approved;
-
-        return $this;
-    }
-
-    /**
-     * Get approved
-     *
-     * @return integer
-     */
-    public function getApproved()
-    {
-        return $this->approved;
     }
 
     /**
@@ -207,5 +136,74 @@ class Stat
     public function getCocktail()
     {
         return $this->cocktail;
+    }
+
+    /**
+     * Set color
+     *
+     * @param \H\CocktailBundle\Entity\Color $color
+     * @return Stat
+     */
+    public function setColor(\H\CocktailBundle\Entity\Color $color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return \H\CocktailBundle\Entity\Color 
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set langage
+     *
+     * @param \H\CocktailBundle\Entity\Langage $langage
+     * @return Stat
+     */
+    public function setLangage(\H\CocktailBundle\Entity\Langage $langage)
+    {
+        $this->langage = $langage;
+
+        return $this;
+    }
+
+    /**
+     * Get langage
+     *
+     * @return \H\CocktailBundle\Entity\Langage 
+     */
+    public function getLangage()
+    {
+        return $this->langage;
+    }
+
+    /**
+     * Set age
+     *
+     * @param \H\CocktailBundle\Entity\Age $age
+     * @return Stat
+     */
+    public function setAge(\H\CocktailBundle\Entity\Age $age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return \H\CocktailBundle\Entity\Age 
+     */
+    public function getAge()
+    {
+        return $this->age;
     }
 }

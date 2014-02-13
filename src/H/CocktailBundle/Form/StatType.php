@@ -16,7 +16,7 @@ class StatType extends AbstractType
     {
         $builder
             ->add('color', 'entity', array(
-                'class'    => 'HCocktailBundle:Cocktail',
+                'class'    => 'HCocktailBundle:Color',
                 'property' => 'name',
                 'multiple' => false,
                 'expanded' => false,
@@ -35,7 +35,6 @@ class StatType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'label'    => 'Quel langage :',
-                'required' => false,
             ));
     }
     
