@@ -5,7 +5,7 @@
     <h1>{{ entity.name }}</h1>
 
     {% for i in ingredient %}
-        <div class="ingredient" style="display: block; background-color: {{ i.ingredient.color }}; height: {{ i.proportion*50 }}px;">
+        <div class="ingredient" style="display: block; background-color: {{ i.ingredient.color }}; height: {{ i.proportion*50 }}px; line-height: {{ i.proportion*50 }}px;">
             {{ i.ingredient.name }}
         </div>
     {% endfor %}
