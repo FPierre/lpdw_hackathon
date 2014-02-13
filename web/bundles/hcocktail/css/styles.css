@@ -1,0 +1,160 @@
+/**
+* Colors
+************/
+.gradient {
+  background: #fdf6ec;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(-45deg, #fdf6ec 0%, #eed2a5 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #fdf6ec), color-stop(100%, #eed2a5));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(-45deg, #fdf6ec 0%, #eed2a5 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(-45deg, #fdf6ec 0%, #eed2a5 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(-45deg, #fdf6ec 0%, #eed2a5 100%);
+  /* IE10+ */
+
+  background: linear-gradient(135deg, #fdf6ec 0%, #eed2a5 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdf6ec', endColorstr='#eed2a5', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+
+}
+/**
+* Typo
+*************/
+/**
+* Reset
+*************/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+textarea:focus,
+input:focus {
+  outline: none;
+}
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
+/*
+* Buttom
+*************/
+.btn {
+  padding: 8px 15px;
+  border: 0;
+  font-size: 1.5em;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.btn-primary {
+  font-family: 'Yellowtail', cursive;
+  margin-top: 30px;
+  background-color: #dad8a7;
+  color: #c3c071;
+  -moz-box-shadow: 0px 10px 0px 0px #bcb85f;
+  -webkit-box-shadow: 0px 10px 0px 0px #bcb85f;
+  -o-box-shadow: 0px 10px 0px 0px #bcb85f;
+  box-shadow: 0px 10px 0px 0px #bcb85f;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#bcb85f, Direction=180, Strength=0);
+}
+.btn-primary:hover {
+  background-color: #cbc883;
+  cursor: pointer;
+}
+/*
+* Select
+*************/
+.customSelect {
+  font: 12px sans-serif;
+  background: url(http://i48.tinypic.com/2u7rpec.png) right center no-repeat;
+  border: 1px solid #ddd;
+  color: #555;
+  padding: 7px 9px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px 2px;
+  width: 175px;
+  /* This is the default class that is used */
+
+  /* Put whatever custom styles you want here */
+
+}
+.customSelect.customSelectHover {
+  /* Styles for when the select box is hovered */
+
+}
+.customSelect.customSelectOpen {
+  /* Styles for when the select box is open */
+
+}
+.customSelect.customSelectFocus {
+  /* Styles for when the select box is in focus */
+
+}
+.customSelect.customSelectDisabledOption {
+  /* Styles for when the selected item is a disabled one */
+
+}
+.customSelect.customSelectDisabled {
+  /* Styles for when the select box itself is disabled */
+
+}
+.customSelectInner {
+  /* You can style the inner box too */
+
+}
+/**
+* Styles
+*************/
+body {
+  background-color: #2c3e50;
+  font-size: 24px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body .wrapper {
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+}
+body h1 {
+  font-family: 'Yellowtail', cursive;
+  color: #ff3d7f;
+  font-size: 5em;
+}
+body .label-form {
+  margin: 10px auto;
+}
