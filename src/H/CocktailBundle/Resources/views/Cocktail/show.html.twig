@@ -20,6 +20,10 @@
         </tbody>
     </table>
 
+    {% for i in ingredient %}
+        <p style="background-color: {{ i.ingredient.color }}; height: {{ i.proportion }}00px; margin: 0;">{{ i.ingredient.name }}</p>
+    {% endfor %}
+
         <ul class="record_actions">
     <li>
         <a href="{{ path('cocktail') }}">
