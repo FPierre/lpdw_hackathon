@@ -27,9 +27,13 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
             $randomColor   = $colors[array_rand($colors)];
             $newColor      = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());
             
-            $age = 
-
-            $randomAge     = $ages[array_rand($ages)];
+            if (strlen($cocktail->getName()) > 4) {
+                $randomAge = $ages[array_rand($ages)];
+            }
+            else {
+                $randomAge = $ages[strlen($cocktail->getName())];
+            }
+            
             $newAge        = $manager->getRepository('HCocktailBundle:Age')->find($randomAge->getId());
             $randomLangage = $langages[array_rand($langages)];
             $newLangage    = $manager->getRepository('HCocktailBundle:Langage')->find($randomLangage->getId());
