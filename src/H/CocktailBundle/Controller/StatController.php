@@ -26,6 +26,7 @@ class StatController extends Controller
      */
     public function indexAction()
     {
+
     }
 
     /**
