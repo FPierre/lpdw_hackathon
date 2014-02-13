@@ -27,6 +27,11 @@
   /* IE6-9 fallback on horizontal gradient */
 
 }
+.radius {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
 /**
 * Typo
 *************/
@@ -58,11 +63,15 @@ textarea:focus,
 input:focus {
   outline: none;
 }
-:focus {
+.btn:focus,
+.btn:active {
   outline: none;
 }
 ::-moz-focus-inner {
   border: 0;
+}
+.bootstrap-select {
+  text-align: center;
 }
 /*
 * Buttom
@@ -93,45 +102,6 @@ input:focus {
 /*
 * Select
 *************/
-.customSelect {
-  font: 12px sans-serif;
-  background: url(http://i48.tinypic.com/2u7rpec.png) right center no-repeat;
-  border: 1px solid #ddd;
-  color: #555;
-  padding: 7px 9px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px 2px;
-  width: 175px;
-  /* This is the default class that is used */
-
-  /* Put whatever custom styles you want here */
-
-}
-.customSelect.customSelectHover {
-  /* Styles for when the select box is hovered */
-
-}
-.customSelect.customSelectOpen {
-  /* Styles for when the select box is open */
-
-}
-.customSelect.customSelectFocus {
-  /* Styles for when the select box is in focus */
-
-}
-.customSelect.customSelectDisabledOption {
-  /* Styles for when the selected item is a disabled one */
-
-}
-.customSelect.customSelectDisabled {
-  /* Styles for when the select box itself is disabled */
-
-}
-.customSelectInner {
-  /* You can style the inner box too */
-
-}
 /**
 * Styles
 *************/
@@ -146,8 +116,8 @@ body {
   padding: 0;
 }
 body .wrapper {
-  width: 80%;
-  margin: 20px auto;
+  width: 60%;
+  margin: 5% auto;
   text-align: center;
 }
 body h1 {
@@ -155,6 +125,10 @@ body h1 {
   color: #ff3d7f;
   font-size: 5em;
 }
-body .label-form {
-  margin: 10px auto;
+body .bloc-form {
+  margin-bottom: 100px;
+  margin-top: 50px;
+}
+body .bloc-form .form {
+  padding: 20px;
 }
