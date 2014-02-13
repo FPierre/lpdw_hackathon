@@ -10,7 +10,7 @@ class Colors implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $colors = array(
+        /*$colors = array(
             array('Rouge', '#FF0000'),
             array('Orange', '#FFA500'),
             array('Jaune', '#FFFF00'),
@@ -21,16 +21,16 @@ class Colors implements FixtureInterface
             array('Noir', '#000000'),
             array('Blanc', '#FFFFFF'),
         );
-        
+
         foreach ($colors as $color) {
             $newColor = new Color();
-            
+
             $newColor->setName($color[0]);
             $newColor->setCode($color[1]);
 
             $manager->persist($newColor);
         }
 
-        $manager->flush();
+        $manager->flush();*/
     }
 }

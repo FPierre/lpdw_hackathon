@@ -34,8 +34,10 @@ class Cocktails implements FixtureInterface
                     $ingredient = new Ingredient();
                     $ingredient->setName($ingredientName);
 
-                    $color = '#FF0000';//$this->getMainColor($ingredientName);
+                    $color = $this->getMainColor($ingredientName);
                     $ingredient->setColor($color);
+
+                    //echo $color . ' ' . $ingredientName . ' - ';
 
                     $manager->persist($ingredient);
 
@@ -193,8 +195,9 @@ class Cocktails implements FixtureInterface
             if ($color) {
                  //$rgb = $this->toRgb($color);
                  $hex = $this->toHex($color['red'], $color['green'], $color['blue']);
+            } else {
+                $hex = '#000';
             }
-            $hex = '#000';
         } else {
             $hex = '#fff';
         }
