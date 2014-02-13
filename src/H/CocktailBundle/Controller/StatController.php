@@ -124,8 +124,7 @@ class StatController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
         );
     }
 
@@ -138,22 +137,6 @@ class StatController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('HCocktailBundle:Stat')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Stat entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
     }
 
     /**
@@ -165,14 +148,6 @@ class StatController extends Controller
     */
     private function createEditForm(Stat $entity)
     {
-        $form = $this->createForm(new StatType(), $entity, array(
-            'action' => $this->generateUrl('stat_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
     }
     /**
      * Edits an existing Stat entity.
@@ -183,29 +158,6 @@ class StatController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('HCocktailBundle:Stat')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Stat entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('stat_edit', array('id' => $id)));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
     }
     /**
      * Deletes a Stat entity.
@@ -215,22 +167,6 @@ class StatController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HCocktailBundle:Stat')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Stat entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('stat'));
     }
 
     /**
@@ -242,11 +178,5 @@ class StatController extends Controller
      */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('stat_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }

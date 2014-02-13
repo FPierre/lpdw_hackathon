@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends "HCocktailBundle::layout.html.twig" %}
 
 {% block main %}
     <h2>Votre cocktail</h2>
 
-    <div>{ entity.id }}</div>
+    <div>{{ entity.id }}</div>
            
     <a href="{{ path('stat_new') }}">Refaire le test</a>
 {% endblock %}
