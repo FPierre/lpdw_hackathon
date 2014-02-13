@@ -10,16 +10,16 @@ class Colors implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /*$colors = array(
-            array('Rouge', '#FF0000'),
-            array('Orange', '#FFA500'),
-            array('Jaune', '#FFFF00'),
-            array('Vert', '#008000'),
-            array('Violet', '#800080'),
-            array('Bleu', '#0000FF'),
-            array('Gris', '#808080'),
-            array('Noir', '#000000'),
-            array('Blanc', '#FFFFFF'),
+        $colors = array(
+            array('red', '#FF0000'),
+            array('orange', '#FFA500'),
+            array('yellow', '#FFFF00'),
+            array('green', '#008000'),
+            array('purple', '#800080'),
+            array('blue', '#0000FF'),
+            array('grey', '#808080'),
+            array('black', '#000000'),
+            array('white', '#FFFFFF'),
         );
 
         foreach ($colors as $color) {
@@ -31,6 +31,6 @@ class Colors implements FixtureInterface
             $manager->persist($newColor);
         }
 
-        $manager->flush();*/
+        $manager->flush();
     }
 }
