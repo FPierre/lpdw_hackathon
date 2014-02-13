@@ -26,14 +26,8 @@ class StatController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('HCocktailBundle:Stat')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
     }
+
     /**
      * Creates a new Stat entity.
      *
@@ -56,14 +50,14 @@ class StatController extends Controller
             //$em->persist($entity);
             //$em->flush();
 
-            $this->algorithm(
+            $cocktail = $this->algorithm(
                 $entity->getColor(),
                 $entity->getAge(),
                 $entity->getLangage()
             );
 
             return $this->redirect($this->generateUrl('stat_show', array(
-                'id' => $entity->getId()
+                'id' => $cocktail,
             )));
         }
 
@@ -77,37 +71,52 @@ class StatController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $cocktailsColor = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+        $statCocktailsColor = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'color' => $color->getId(),
         ));
-        $cocktailsAge = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+        $statCocktailsAge = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'age' => $age->getId(),
         ));
-        $cocktailsLangage = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+        $statCocktailsLangage = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'langage' => $langage->getId(),
         ));
 
-        $cocktailsColorId = array();
+        $statColorId = array();
 
-        foreach ($cocktailsColor as $cocktail) {
-            $cocktailsColorId []= $cocktail->getId();
+        foreach ($statCocktailsColor as $stat) {
+            $statColorId []= $stat->getId();
         }
 
-        $cocktailsAgeId = array();
+        $statAgeId = array();
 
-        foreach ($cocktailsAge as $cocktail) {
-            $cocktailsAgeId []= $cocktail->getId();
+        foreach ($statCocktailsAge as $stat) {
+            $statAgeId []= $stat->getId();
         }
 
-        $cocktailsLangageId = array();
+        $statLangageId = array();
 
-        foreach ($cocktailsLangage as $cocktail) {
-            $cocktailsLangageId []= $cocktail->getId();
+        foreach ($statCocktailsLangage as $stat) {
+            $statLangageId []= $stat->getId();
         }
 
-        $cocktails = array_intersect_assoc($cocktailsColorId, $cocktailsAgeId, $cocktailsLangageId);
+        $statId = array_intersect($statColorId, $statAgeId, $statLangageId);
 
-        var_dump($cocktails);
+        $scoreMax = 0;
+        $statScoreMax = null;
+
+        foreach ($statId as $stat) {
+            $score = $em->getRepository('HCocktailBundle:Stat')->find($stat)->getScore();
+
+            if ($score > $scoreMax) {
+                $scoreMax = $score;
+                $statScoreMax = $stat;
+            }
+        }
+
+        $stat = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);
+        $cocktail = $em->getRepository('HCocktailBundle:Cocktail')->find($stat->getCocktail()->getId());
+
+        return $cocktail->getId();
     }
 
     /**
@@ -156,22 +165,16 @@ class StatController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('HCocktailBundle:Stat')->find($id);
-
-        if (!$entity) {
+        if (! $entity) {
             throw $this->createNotFoundException('Unable to find Stat entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity' => $entity,
+            'cocktail' => $cocktail,
         );
     }
 
-    public function editAction($id)
+    /*public function editAction($id)
     {
     }
 
@@ -189,5 +192,5 @@ class StatController extends Controller
 
     private function createDeleteForm($id)
     {
-    }
+    }*/
 }
