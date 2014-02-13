@@ -17,7 +17,6 @@ use H\CocktailBundle\Form\StatType;
  */
 class StatController extends Controller
 {
-
     /**
      * Lists all Stat entities.
      *
@@ -57,7 +56,9 @@ class StatController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('stat_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('stat_show', array(
+                'id' => $entity->getId()
+            )));
         }
 
         return array(
