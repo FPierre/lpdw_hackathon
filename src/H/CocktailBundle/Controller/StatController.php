@@ -50,6 +50,10 @@ class StatController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $entity->setApproved(0);
+            $entity->setScore(0);
+
             $em->persist($entity);
             $em->flush();
 
