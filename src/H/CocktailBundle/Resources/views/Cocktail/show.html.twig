@@ -1,40 +1,12 @@
-{% extends '::base.html.twig' %}
+{% extends "HCocktailBundle::layout.html.twig" %}
 
-{% block body -%}
-    <h1>Cocktail</h1>
+{% block main %}
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td>{{ entity.comment }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1>{{ entity.name }}</h1>
+    <p>{{ entity.comment }}</p>
 
     {% for i in ingredient %}
-        <p style="background-color: {{ i.ingredient.color }}; height: {{ i.proportion }}00px; margin: 0;">{{ i.ingredient.name }}</p>
+        <div class="ingredient" style="background-color: {{ i.ingredient.color }}; height: {{ i.proportion }}px;">{{ i.ingredient.name }}</p>
     {% endfor %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('cocktail') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('cocktail_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}
