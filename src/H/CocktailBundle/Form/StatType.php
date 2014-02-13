@@ -21,6 +21,7 @@ class StatType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'label'    => 'Quelle couleur :',
+                'attr' => array('class' => 'fancy')
             ))
             ->add('age', 'entity', array(
                 'class'    => 'HCocktailBundle:Age',
@@ -28,6 +29,7 @@ class StatType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'label'    => 'Quel âge :',
+                'attr' => array('class' => 'fancy')
             )) 
             ->add('langage', 'entity', array(
                 'class'    => 'HCocktailBundle:Langage',
@@ -35,6 +37,7 @@ class StatType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'label'    => 'Quel langage :',
+                'attr' => array('class' => 'fancy')
             ));
     }
     

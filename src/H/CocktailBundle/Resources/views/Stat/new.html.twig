@@ -3,6 +3,19 @@
 {% block main %}
 
     <h1>Cocktail ?</h1>
+	
+	{{ form_start(form) }}
+	
+		<div class="label-form">
+			{{ form_row(form.color) }}
+		</div>
+		<div class="label-form">
+			{{ form_row(form.age) }}
+		</div>
+		<div class="label-form">
+			{{ form_row(form.langage) }}
+		</div>
 
-    {{ form(form) }}
+	{{ form_end(form) }}
+
 {% endblock %}
