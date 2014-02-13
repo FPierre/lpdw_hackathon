@@ -41,19 +41,19 @@ class Stat
     private $cocktail;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Color", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Color", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $color;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Langage", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Langage", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $langage;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Age", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Age", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $age;
