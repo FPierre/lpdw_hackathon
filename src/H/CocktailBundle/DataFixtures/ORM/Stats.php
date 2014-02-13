@@ -23,7 +23,7 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
 
         // exit(0);
 
-        foreach ($cocktails as $cocktail) {
+        foreach ($cocktails as $cocktail) { var_dump($cocktail->getName());
             $randomColor   = $colors[array_rand($colors)];
             $newColor      = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());
 
