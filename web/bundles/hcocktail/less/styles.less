@@ -9,7 +9,7 @@
 @color-two : #F1D458;
 @color-three : #FF3D7F;
 @color-four : #DAD8A7;
-@color-five : #FF9E9D;
+@color-five : #1abc9c;
 
 .gradient{
 	background: #fdf6ec; /* Old browsers */
@@ -20,6 +20,11 @@
 	background: -ms-linear-gradient(-45deg, #fdf6ec 0%,#eed2a5 100%); /* IE10+ */
 	background: linear-gradient(135deg, #fdf6ec 0%,#eed2a5 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdf6ec', endColorstr='#eed2a5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.radius{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 /**
@@ -57,8 +62,12 @@ textarea:focus, input:focus{
 	outline:none
 }
 
-:focus {outline:none;}
+.btn:focus, .btn:active {outline:none;}
 ::-moz-focus-inner {border:0;}
+
+.bootstrap-select{
+	text-align: center;
+}
 
 /*
 * Buttom
@@ -71,7 +80,7 @@ textarea:focus, input:focus{
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
-.btn-primary{
+.btn-me{
 	font-family: @font-cursive;
 	margin-top: 30px;
 	background-color: @color-four;
@@ -86,6 +95,11 @@ textarea:focus, input:focus{
 		
 		background-color: darken(@color-four, 10%);
 		cursor: pointer;
+		-moz-box-shadow: 0px 10px 0px 0px darken(@color-four, 20%);
+		-webkit-box-shadow: 0px 10px 0px 0px darken(@color-four, 20%);
+		-o-box-shadow: 0px 10px 0px 0px darken(@color-four, 20%);
+		box-shadow: 0px 10px 0px 0px darken(@color-four, 20%);
+		color: @color-light;
 
 	}
 }
@@ -93,43 +107,7 @@ textarea:focus, input:focus{
 /*
 * Select
 *************/
-.customSelect {
-	font:12px sans-serif;
-    background: url(http://i48.tinypic.com/2u7rpec.png) right center no-repeat;
-    border:1px solid #ddd;
-    color:#555;
-    padding:7px 9px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px 2px;
-    width:175px;
-/* This is the default class that is used */
-/* Put whatever custom styles you want here */
-}
 
-.customSelect.customSelectHover {
-/* Styles for when the select box is hovered */
-}
-
-.customSelect.customSelectOpen {
-/* Styles for when the select box is open */
-}
-
-.customSelect.customSelectFocus {
-/* Styles for when the select box is in focus */
-}
-
-.customSelect.customSelectDisabledOption {
-/* Styles for when the selected item is a disabled one */
-}
-
-.customSelect.customSelectDisabled {
-/* Styles for when the select box itself is disabled */
-}
-
-.customSelectInner {
-/* You can style the inner box too */
-}
 
 /**
 * Styles
@@ -146,21 +124,28 @@ body{
 	padding: 0;
 
 	.wrapper{
-		width: 80%;
-		margin: 20px auto;
+		width: 60%;
+		margin: 5% auto;
 		text-align: center;
 	}
 
 	h1{
 		font-family: @font-cursive;
-		// text-shadow: 0px 5px 0px @color-two;
-
 		color: @color-three;
-		font-size: 5em
+		font-size: 6em
 	}
+	
+	.bloc-form{
+		margin-bottom: 100px;
+		margin-top: 50px;
 
-	.label-form{
-		margin: 10px auto;
+		.form{
+			color: @color-five;
+			padding: 20px;
+			// background-color: @color-one;
+			// .radius
+		}
+	
 	}
 
 

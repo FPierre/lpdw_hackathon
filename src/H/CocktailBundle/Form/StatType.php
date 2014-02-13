@@ -20,24 +20,24 @@ class StatType extends AbstractType
                 'property' => 'name',
                 'multiple' => false,
                 'expanded' => false,
-                'label'    => 'Quelle couleur :',
-                'attr' => array('class' => 'fancy')
+                'label'    => 'Couleur',
+                'attr' => array('class' => 'form-control selectpicker')
             ))
             ->add('age', 'entity', array(
                 'class'    => 'HCocktailBundle:Age',
                 'property' => 'name',
                 'multiple' => false,
                 'expanded' => false,
-                'label'    => 'Quel âge :',
-                'attr' => array('class' => 'fancy')
+                'label'    => 'Âge',
+                'attr' => array('class' => 'form-control selectpicker')
             )) 
             ->add('langage', 'entity', array(
                 'class'    => 'HCocktailBundle:Langage',
                 'property' => 'name',
                 'multiple' => false,
                 'expanded' => false,
-                'label'    => 'Quel langage :',
-                'attr' => array('class' => 'fancy')
+                'label'    => 'Langage',
+                'attr' => array('class' => 'form-control selectpicker')
             ));
     }
     

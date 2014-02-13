@@ -1,3 +1,3 @@
 $(document).ready(function() {
-	 $('.fancy').customSelect();
+	 $('.selectpicker').selectpicker();
 });

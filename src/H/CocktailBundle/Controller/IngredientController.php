@@ -144,13 +144,12 @@ class IngredientController extends Controller
             $i[$name] = getMainColor($name);
         }
 
-        var_dump($i);
+        //var_dump($i);
 
-        file_put_contents("ingredientColor.json",json_encode($i));
-        die();
+        //file_put_contents("ingredientColor.json",json_encode($i));   die();
 
         return array(
-            'entities' => $entities,
+            'entities' => $i,
         );
     }
     /**

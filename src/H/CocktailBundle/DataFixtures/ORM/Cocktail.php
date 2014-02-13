@@ -74,6 +74,10 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
                 $cocktailIngredient = new CocktailIngredient();
                 $cocktailIngredient->setCocktail($cocktail);
                 $cocktailIngredient->setIngredient($ingredient);
+
+                if (!is_numeric($proportion) || $proportion == 0) {
+                    $proportion = 1;
+                }
                 $cocktailIngredient->setProportion($proportion);
 
                 $manager->persist($cocktailIngredient);
@@ -110,10 +114,10 @@ class Cocktails implements FixtureInterface, OrderedFixtureInterface
             if($oneData['nom'] != ''){
                 $name = ucfirst($oneData['nom']);
                 $result[$name] = array();
-                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0);
+                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0, 1);
                 //$result[$name]['proportion'][] = $oneData['proportions'];
             }else{
-                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0);
+                $result[$name][ucfirst($oneData['ingrédients'])] = substr($oneData['proportions'], 0, 1);
             }
 
         }

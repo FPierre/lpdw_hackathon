@@ -133,7 +133,7 @@ class StatController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'envoyer', 'attr' => array('class' => 'btn btn-primary')));
+        $form->add('submit', 'submit', array('label' => 'envoyer', 'attr' => array('class' => 'btn btn-me')));
 
         return $form;
     }

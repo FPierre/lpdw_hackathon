@@ -114,12 +114,15 @@ class CocktailController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Cocktail entity.');
+        } else {
+            $ingredient = $em->getRepository('HCocktailBundle:CocktailIngredient')->findByCocktail($entity);
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
+            'ingredient'  => $ingredient,
             'delete_form' => $deleteForm->createView(),
         );
     }
