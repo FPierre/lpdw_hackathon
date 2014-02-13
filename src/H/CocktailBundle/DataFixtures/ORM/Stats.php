@@ -25,7 +25,7 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
 
         foreach ($cocktails as $cocktail) { var_dump($cocktail->getName());
             $randomColor   = $colors[array_rand($colors)];
-            $newColor      = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());
+            $newColor      = $manager->getRepository('HCocktailBundle:Color')->find($randomColor->getId());s²
             
             if (strlen($cocktail->getName()) > 4) {
                 $randomAge = $ages[array_rand($ages)];
@@ -33,16 +33,31 @@ class Stats implements FixtureInterface, OrderedFixtureInterface
             else {
                 $randomAge = $ages[strlen($cocktail->getName())];
             }
-            
-            $newAge        = $manager->getRepository('HCocktailBundle:Age')->find($randomAge->getId());
-            $randomLangage = $langages[array_rand($langages)];
-            $newLangage    = $manager->getRepository('HCocktailBundle:Langage')->find($randomLangage->getId());
-            $newCocktail   = $manager->getRepository('HCocktailBundle:Cocktail')->find($cocktail->getId());
-            $newStat       = new Stat();
 
+            $newAge        = $manager->getRepository('HCocktailBundle:Age')->find($randomAge->getId());
+            $newCocktail   = $manager->getRepository('HCocktailBundle:Cocktail')->find($cocktail->getId());
+            // nom du cocktail
+            $cocktailName = $newCocktail->getName();
+
+            // Tous les ingredients
+            $allLanguages = $manager->getRepository('HCocktailBundle:Langage')->findAll();
+
+            $theLanguage = '';
+            $memory = 0;
+            foreach ($allLanguages as $oneLanguage) {
+
+                $count = similar_text($oneLanguage->getName(), $cocktailName);
+                if($count > $memory){
+                    $memory = $count;
+                    $theLanguage = $oneLanguage;
+                }
+            }
+
+            // nom Ingredient
+            $newStat       = new Stat();
             $newStat->setColor($newColor);
             $newStat->setAge($newAge);
-            $newStat->setLangage($newLangage);
+            $newStat->setLangage($theLanguage);
             $newStat->setCocktail($newCocktail);
             $newStat->setApproved(1);
             $newStat->setScore(2);
