@@ -2,11 +2,12 @@
 
 namespace H\CocktailBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use H\CocktailBundle\Entity\Langage;
 
-class Langages implements FixtureInterface
+class Langages implements FixtureInterface, OrderedFixtureInterface
 {
 	public function load(ObjectManager $manager)
     {
@@ -25,5 +26,10 @@ class Langages implements FixtureInterface
         }
 
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 4; 
     }
 }

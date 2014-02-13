@@ -2,13 +2,14 @@
 
 namespace H\CocktailBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use H\CocktailBundle\Entity\Cocktail;
 use H\CocktailBundle\Entity\Ingredient;
 use H\CocktailBundle\Entity\CocktailIngredient;
 
-class Cocktails implements FixtureInterface
+class Cocktails implements FixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -115,5 +116,10 @@ class Cocktails implements FixtureInterface
 
         }
         return $result;
+    }
+
+    public function getOrder()
+    {
+        return 1; 
     }
 }

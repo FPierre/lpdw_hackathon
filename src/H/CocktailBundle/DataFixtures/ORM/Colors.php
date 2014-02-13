@@ -2,11 +2,12 @@
 
 namespace H\CocktailBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use H\CocktailBundle\Entity\Color;
 
-class Colors implements FixtureInterface
+class Colors implements FixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -32,5 +33,10 @@ class Colors implements FixtureInterface
         }
 
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 3; 
     }
 }
