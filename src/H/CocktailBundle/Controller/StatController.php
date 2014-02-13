@@ -128,54 +128,22 @@ class StatController extends Controller
         );
     }
 
-    /**
-     * Displays a form to edit an existing Stat entity.
-     *
-     * @Route("/{id}/edit", name="stat_edit")
-     * @Method("GET")
-     * @Template()
-     */
     public function editAction($id)
     {
     }
 
-    /**
-    * Creates a form to edit a Stat entity.
-    *
-    * @param Stat $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
     private function createEditForm(Stat $entity)
     {
     }
-    /**
-     * Edits an existing Stat entity.
-     *
-     * @Route("/{id}", name="stat_update")
-     * @Method("PUT")
-     * @Template("HCocktailBundle:Stat:edit.html.twig")
-     */
+
     public function updateAction(Request $request, $id)
     {
     }
-    /**
-     * Deletes a Stat entity.
-     *
-     * @Route("/{id}", name="stat_delete")
-     * @Method("DELETE")
-     */
+
     public function deleteAction(Request $request, $id)
     {
     }
 
-    /**
-     * Creates a form to delete a Stat entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm($id)
     {
     }
