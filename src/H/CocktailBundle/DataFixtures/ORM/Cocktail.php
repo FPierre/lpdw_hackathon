@@ -12,43 +12,30 @@ class Cocktails implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // Cocktails
-        //$AllCocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
-        //$AllCocktails = $this->csvToArray('/var/www/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
 
-        $AllCocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        //$cocktails = $this->csvToArray('/Users/LEI/Projects/LPDW/PHP/Symfony/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        //$cocktails = $this->csvToArray('/var/www/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
+        $cocktails = $this->csvToArray('/Users/aureliendumont/SiteWeb/hackathon/src/H/CocktailBundle/DataFixtures/ORM/cocktails.csv');
 
-        foreach ($AllCocktails as $name => $oneCocktail) {
-
-            $cocktail = new Cocktail();
-            $cocktail->setName($name);
-            $cocktail->setcomment('Lorem');
-
-            $manager->persist($cocktail);
-
-        }
-
-        $manager->flush();
-
-        // Ingredients
+        // Cocktail & Ingredient
         $colors = array('#a66bbe', '#008da3', '#e97b7d', '#b14151');
-        foreach ($AllCocktails as $name => $oneCocktail) {
+        foreach ($cocktails as $name => $c) {
 
             $cocktail = new Cocktail();
             $cocktail->setName($name);
             $cocktail->setcomment('Lorem');
 
-            foreach ($oneCocktail as $theIngredient => $theProp) {
+            foreach ($c as $theIngredient => $theProp) {
 
-                $ma = $manager->getRepository('HCocktailBundle:Ingredient');
-                $ingredient = $ma->findOneByName($theIngredient);
+                $em = $manager->getRepository('HCocktailBundle:Ingredient');
+                $ingredient = $em->findOneByName($theIngredient);
 
                 if (!$ingredient) {
+
                     $ingredient = new Ingredient();
                     $ingredient->setName($theIngredient);
+                    $ingredient->setColor($colors[rand(0,3)]);
 
-                    $i = rand(0,3);
-                    $ingredient->setColor($colors[$i]);
                     $manager->persist($ingredient);
 
                     $manager->flush();
@@ -56,24 +43,23 @@ class Cocktails implements FixtureInterface
             }
         }
 
-        // CocktailIngredients
-        foreach ($AllCocktails as $name => $oneCocktail) {
+        // CocktailIngredient
+        foreach ($cocktails as $name => $c) {
 
-            $ma = $manager->getRepository('HCocktailBundle:Cocktail');
-            $cocktail = $ma->findOneByName($name);
+            $em = $manager->getRepository('HCocktailBundle:Cocktail');
+            $cocktail = $em->findOneByName($name);
 
-            foreach ($oneCocktail as $theIngredient => $theProp) {
+            foreach ($c as $ingredient => $proportion) {
 
-                $mi = $manager->getRepository('HCocktailBundle:Ingredient');
-                $ingredient = $mi->findOneByName($theIngredient);
+                $em = $manager->getRepository('HCocktailBundle:Ingredient');
+                $ingredient = $em->findOneByName($ingredient);
 
-                $ci = new CocktailIngredient();
-                $ci->setCocktail($cocktail);
-                $ci->setIngredient($ingredient);
+                $cocktailIngredient = new CocktailIngredient();
+                $cocktailIngredient->setCocktail($cocktail);
+                $cocktailIngredient->setIngredient($ingredient);
+                $cocktailIngredient->setProportion($proportion);
 
-                $ci->setProportion($theProp);
-
-                $manager->persist($ci);
+                $manager->persist($cocktailIngredient);
             }
         }
 
