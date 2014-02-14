@@ -64,7 +64,7 @@ class StatController extends Controller
     /**
      * @Route("/{id}", name="stat_show")
      * @Method("GET")
-     * @Template("HCocktailBundle:Stat:show.html.twig") 
+     * @Template("HCocktailBundle:Stat:show.html.twig")
      */
     public function showAction($id)
     {
@@ -73,7 +73,7 @@ class StatController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Cocktail entity.');
-        } 
+        }
         else {
             $ingredient = $em->getRepository('HCocktailBundle:CocktailIngredient')->findByCocktail($entity);
         }
