@@ -63,14 +63,16 @@ class StatController extends Controller
             if (! $statExiste) {
                 $entity->setScore(1);
                 $em->persist($entity);
+                $em->flush();
                 $session->set('stat', $entity->getId());
+
             }else{
                 $statExiste->setScore($statExiste->getScore() + 1);
                 $em->persist($statExiste);
+                $em->flush();
                 $session->set('stat', $statExiste->getId());
             }
-             $em->flush();
-           
+            
 
             return $this->redirect($this->generateUrl('stat_show', array(
                 'id' => $idCocktail,
