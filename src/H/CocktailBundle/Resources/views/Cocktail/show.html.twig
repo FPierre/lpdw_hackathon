@@ -3,11 +3,20 @@
 {% block main %}
 
     <h1>{{ entity.name }}</h1>
-
-    {% for i in ingredient %}
-        <div class="ingredient" style="display: block; background-color: {{ i.ingredient.color }}; height: {{ i.proportion*50 }}px; line-height: {{ i.proportion*50 }}px;">
+	
+	<div class="row">
+  	<div class="col-md-4"><a href="#" class="btn btn-me">Non pertinant</a></div>
+  	<div class="col-md-4">
+  		<div id="glace">
+    	{% for i in ingredient %}
+        <div class="ingredient" style="background-color: {{ i.ingredient.color }}; height: {{ i.proportion*10 }}%; padding-top: {{i.proportion*0.5}}%;">
             {{ i.ingredient.name }}
         </div>
-    {% endfor %}
+    	{% endfor %}
+    </div>
+  	</div>
+  	<div class="col-md-4"><a href="#" class="btn btn-me">Pertinant</a></div>
+	</div>
+	
 
 {% endblock %}

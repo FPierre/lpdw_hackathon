@@ -1,3 +1,0 @@
-h_cocktail_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: HCocktailBundle:Default:index }

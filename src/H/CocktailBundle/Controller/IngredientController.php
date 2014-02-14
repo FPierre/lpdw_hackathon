@@ -229,7 +229,7 @@ class IngredientController extends Controller
             $hsl[$name] = "hsl(" . $h[0] . "," . 50 . "%," . $h[2]*100 . "%)";
         }
 
-        file_put_contents("ingredientColor.json",json_encode($i));
+        //file_put_contents("ingredientColor.json",json_encode($i));
 
         return array(
             'entities' => $hsl
