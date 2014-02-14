@@ -63,11 +63,11 @@ class StatController extends Controller
             if (! $statExiste) {
                 $entity->setScore(1);
                 $em->persist($entity);
-                $session->getFlashBag()->add('stat', $entity->getId());
+                $session->set('stat', $entity->getId());
             }else{
                 $statExiste->setScore($statExiste->getScore() + 1);
                 $em->persist($statExiste);
-                $session->getFlashBag()->add('stat', $statExiste->getId());
+                $session->set('stat', $statExiste->getId());
             }
              $em->flush();
            
@@ -92,21 +92,14 @@ class StatController extends Controller
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
+        $statId = $session->get('stat');
 
+        $stat = $em->getRepository('HCocktailBundle:Stat')->find($statId);
 
-        // foreach ($session->getFlashBag()->get('stat', array()) as $message) {
-        //     echo "<div class='flash-warning'>$message</div>";
-        // }
+        $stat->setApproved($stat->getApproved() + 2);
+        $stat->setScore($stat->getScore() + 2);
 
-        $statId = $session->getFlashBag()->get('stat');
-
-        $stat = $em->getRepository('HCocktailBundle:Stat')->findById($statId);
-
-        //$stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
-        $stat[0]->setApproved($stat[0]->getApproved() + 2);
-        $stat[0]->setScore($stat[0]->getScore() + 2);
-
-        $em->persist($stat[0]);
+        $em->persist($stat);
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));
@@ -120,12 +113,13 @@ class StatController extends Controller
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
+        $statId = $session->get('stat');
+        $stat = $em->getRepository('HCocktailBundle:Stat')->find($statId);
         
-        $stat[0]->setApproved($stat[0]->getApproved() - 2);
-        $stat[0]->setScore($stat[0]->getScore() - 3);
+        $stat->setApproved($stat->getApproved() - 2);
+        $stat->setScore($stat->getScore() - 3);
 
-        $em->persist($stat[0]);
+        $em->persist($stat);
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));
@@ -203,7 +197,7 @@ class StatController extends Controller
         if (! $statScoreMax) {
             $cocktails      = $em->getRepository('HCocktailBundle:Cocktail')->findAll();
             $randomCocktail = $cocktails[array_rand($cocktails)];
-            $cocktail       = $em->getRepository('HCocktailBundle:Cocktail')->find($randomcocktail->getId());
+            $cocktail       = $em->getRepository('HCocktailBundle:Cocktail')->find($randomCocktail->getId());
         }
         else {
             $stat     = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);

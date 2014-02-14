@@ -152,6 +152,12 @@ body h1 {
   line-height: 0.8em;
   margin-bottom: 50px;
 }
+body h2 {
+  font-family: 'Yellowtail', cursive;
+  color: #ff3d7f;
+  font-size: 4em;
+  margin-bottom: 50px;
+}
 body .bloc-form {
   margin-bottom: 100px;
   margin-top: 50px;
@@ -159,6 +165,9 @@ body .bloc-form {
 body .bloc-form .form {
   color: #1abc9c;
   padding: 20px;
+}
+body .glace {
+  margin-bottom: 30px;
 }
 body .ingredient {
   color: #1abc9c;
