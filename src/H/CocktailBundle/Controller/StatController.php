@@ -173,24 +173,4 @@ class StatController extends Controller
             'cocktail' => $cocktail,
         );
     }
-
-    /*public function editAction($id)
-    {
-    }
-
-    private function createEditForm(Stat $entity)
-    {
-    }
-
-    public function updateAction(Request $request, $id)
-    {
-    }
-
-    public function deleteAction(Request $request, $id)
-    {
-    }
-
-    private function createDeleteForm($id)
-    {
-    }*/
 }
