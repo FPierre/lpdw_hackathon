@@ -26,6 +26,7 @@ class StatController extends Controller
      */
     public function indexAction()
     {
+
     }
 
     /**
@@ -50,15 +51,15 @@ class StatController extends Controller
             //$em->persist($entity);
             //$em->flush();
 
-            $cocktail = $this->algorithm(
+            $idCocktail = $this->algorithm(
                 $entity->getColor(),
                 $entity->getAge(),
                 $entity->getLangage()
             );
 
-            return $this->redirect($this->generateUrl('stat_show', array(
-                'id' => $cocktail,
-            )));
+            return $this->forward('HCocktailBundle:cocktail:show', array(
+                'id' => $idCocktail,
+            ));
         }
 
         return array(
@@ -113,8 +114,14 @@ class StatController extends Controller
             }
         }
 
-        $stat = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);
-        $cocktail = $em->getRepository('HCocktailBundle:Cocktail')->find($stat->getCocktail()->getId());
+        if(!$statScoreMax){
+            $cocktails = $em->getRepository('HCocktailBundle:Cocktail')->findAll();
+            $randomcocktail   = $cocktails[array_rand($cocktails)];
+            $cocktail      = $em->getRepository('HCocktailBundle:Cocktail')->find($randomcocktail->getId());
+        }else{
+            $stat = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);
+            $cocktail = $em->getRepository('HCocktailBundle:Cocktail')->find($stat->getCocktail()->getId());
+        }
 
         return $cocktail->getId();
     }
