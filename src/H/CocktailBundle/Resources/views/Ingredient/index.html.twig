@@ -3,9 +3,9 @@
 {% block body -%}
     <h1>Ingredient list</h1>
 
-    {% for key, color in entities %}
-        <p style="background-color: {{ color }};">
-            {{ key }}
+    {% for entity in entities %}
+        <p>
+            {{ entity.name }}
         </p>
     {% endfor %}
 {% endblock %}
