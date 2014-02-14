@@ -36,6 +36,28 @@
 
 @font-light : 300;
 
+/* Icones */
+@font-face {
+	font-family: "Flaticon";
+	src: url("../fonts/flaticon.eot");
+	src: url("../fonts/flaticon.eot#iefix") format("embedded-opentype"),
+	url("../fonts/flaticon.woff") format("woff"),
+	url("../fonts/flaticon.ttf") format("truetype"),
+	url("../fonts/flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+	font-family: Flaticon;
+        font-size: 2em;
+font-style: normal;
+}.flaticon-drop:before {
+	content: "\e000";
+
+}
+
+
 
 /**
 * Reset
@@ -151,17 +173,10 @@ body{
 	
 	}
 
-
-	#glace {
-	  height: 500px;
-	   margin-bottom: 50px;
-	  .ingredient{
-	  	width: 100%;
-		vertical-align:middle;
-  		display:inline-block;
-  		font-size: 0.8em;
+	 .ingredient{
+	  	color: @color-five;
+	  	margin-top: 0.8em;
 	  }
-	}
 
 
 }

@@ -63,11 +63,13 @@ class StatController extends Controller
             if(!$statExiste){
                 $entity->setScore(1);
                 $em->persist($entity);
-                $session->set('stat', $entity);
+                $session->getFlashBag()->add('stat', $entity->getId());
+                //$session->set('stat', $entity);
             }else{
                 $statExiste->setScore($statExiste->getScore() + 1);
                 $em->persist($statExiste);
-                $session->set('stat', $statExiste);
+                $session->getFlashBag()->add('stat', $statExiste->getId());
+                //$session->set('stat', $statExiste);
             }
              $em->flush();
            
@@ -92,11 +94,21 @@ class StatController extends Controller
 
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
-        $stat->setApproved($stat->getApproved() + 2);
-        $stat->setScore($stat->getScore() + 2);
 
-        $em->persist($stat);
+
+        // foreach ($session->getFlashBag()->get('stat', array()) as $message) {
+        //     echo "<div class='flash-warning'>$message</div>";
+        // }
+
+        $statId = $session->getFlashBag()->get('stat');
+
+        $stat = $em->getRepository('HCocktailBundle:Stat')->findById($statId);
+
+        //$stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
+        $stat[0]->setApproved($stat[0]->getApproved() + 2);
+        $stat[0]->setScore($stat[0]->getScore() + 2);
+
+        $em->persist($stat[0]);
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));
@@ -112,10 +124,11 @@ class StatController extends Controller
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
-        $stat->setApproved($stat->getApproved() - 2);
-        $stat->setScore($stat->getScore() - 3);
+        
+        $stat[0]->setApproved($stat[0]->getApproved() - 2);
+        $stat[0]->setScore($stat[0]->getScore() - 3);
 
-        $em->persist($stat);
+        $em->persist($stat[0]);
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));

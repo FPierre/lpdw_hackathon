@@ -3,20 +3,30 @@
 {% block main %}
 
     <h1>{{ entity.name }}</h1>
-	
-	<div class="row">
-  	<div class="col-md-4"><a href="{{ path('stat_dislike') }}" class="btn btn-me">Non pertinant</a></div>
-  	<div class="col-md-4">
-  		<div id="glace">
-    	{% for i in ingredient %}
-        <div class="ingredient" style="background-color: {{ i.ingredient.color }}; height: {{ i.proportion*10 }}%; padding-top: {{i.proportion*0.5}}%;">
-            {{ i.ingredient.name }}
-        </div>
-    	{% endfor %}
-    </div>
-  	</div>
-  	<div class="col-md-4"><a href="{{ path('stat_like') }}" class="btn btn-me">Pertinant</a></div>
+  	<div class="row">
+	  	<div class="col-md-12">
+	    	{% for i in ingredient %}
+				
+				<div class="row">
+					<div class="col-md-6 text-right">
+						{% for u in 0..i.proportion %}
+						    <i class="flaticon-drop" style="color: {{ i.ingredient.color }};"></i>
+						{% endfor %}
+					</div>
+					<div class="col-md-6 text-left ingredient">
+						{{ i.ingredient.name }}
+					</div>
+				</div>
+		    
+	    	{% endfor %}
+	  	</div>
 	</div>
+	<div class="row">
+	  	<div class="col-md-12">
+	  		<a href="{{ path('stat_like') }}" class="btn btn-me">Pertinant</a>
+	  		<a href="{{ path('stat_dislike') }}" class="btn btn-me">Non pertinant</a>
+	  	</div>
+  	</div>
 
 {% endblock %}
 
