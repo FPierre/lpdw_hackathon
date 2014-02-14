@@ -3,5 +3,5 @@ h_cocktail:
     prefix:   /
 
 HCocktailBundle:
-    resource: "@HCocktailBundle/Controller"
+    resource: "@HCocktailBundle/Controller/StatController.php"
     type: annotation
