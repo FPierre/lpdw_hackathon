@@ -23,8 +23,9 @@ class StatController extends Controller
     // "stat" et "GET"
     public function indexAction(Request $request)
     {
+        $em     = $this->getDoctrine()->getManager();
         $entity = new Stat();
-        $form = $this->createForm(new StatType(), $entity, array(
+        $form   = $this->createForm(new StatType(), $entity, array(
             'action' => $this->generateUrl('index'),
             'method' => 'POST',
         ));
@@ -37,11 +38,10 @@ class StatController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
             $entity->setApproved(0);
         
             $idCocktail = $this->algorithm(
+                $em,
                 $entity->getColor(),
                 $entity->getAge(),
                 $entity->getLangage()
@@ -60,11 +60,12 @@ class StatController extends Controller
 
             $session = new Session();
 
-            if(!$statExiste){
+            if (! $statExiste) {
                 $entity->setScore(1);
                 $em->persist($entity);
                 $session->set('stat', $entity);
-            }else{
+            }
+            else {
                 $statExiste->setScore($statExiste->getScore() + 1);
                 $em->persist($statExiste);
                 $session->set('stat', $statExiste);
@@ -88,8 +89,8 @@ class StatController extends Controller
      * @Route("/like", name="stat_like")
      * @Template("HCocktailBundle:Stat:index.html.twig") 
      */
-    public function like(){
-
+    public function like()
+    {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
@@ -100,15 +101,14 @@ class StatController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));
-
     }
 
      /**
      * @Route("/dislike", name="stat_dislike")
      * @Template("HCocktailBundle:Stat:index.html.twig") 
      */
-    public function dislike(){
-
+    public function dislike()
+    {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
@@ -119,7 +119,6 @@ class StatController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('index'));
-
     }
 
     /**
@@ -145,58 +144,59 @@ class StatController extends Controller
         );
     }
 
-    public function algorithm($color, $age, $langage)
+    public function algorithm($em, $color, $age, $langage)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $statCocktailsColor = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+        $cocktailsByColor = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'color' => $color->getId(),
         ));
-        $statCocktailsAge = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+
+        $cocktailsIdByColor = array();
+
+        foreach ($cocktailsByColor as $stat) {
+            $cocktailsIdByColor []= $stat->getId();
+        }
+
+        $cocktailsByAge = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'age' => $age->getId(),
         ));
-        $statCocktailsLangage = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
+
+        $cocktailsIdByAge = array();
+
+        foreach ($cocktailsByAge as $stat) {
+            $cocktailsIdByAge []= $stat->getId();
+        }
+
+        $cocktailsByLangage = $em->getRepository('HCocktailBundle:Stat')->findBy(array(
             'langage' => $langage->getId(),
         ));
 
-        $statColorId = array();
+        $cocktailsIdByLangage = array();
 
-        foreach ($statCocktailsColor as $stat) {
-            $statColorId []= $stat->getId();
+        foreach ($cocktailsByLangage as $stat) {
+            $cocktailsIdByLangage []= $stat->getId();
         }
 
-        $statAgeId = array();
+        $statsIdIntersect = array();
+        $statsIdIntersect = array_intersect($cocktailsIdByColor, $cocktailsIdByAge, $cocktailsIdByLangage);
+        $scoreMax         = 0;
+        $statScoreMax     = null;
 
-        foreach ($statCocktailsAge as $stat) {
-            $statAgeId []= $stat->getId();
-        }
-
-        $statLangageId = array();
-
-        foreach ($statCocktailsLangage as $stat) {
-            $statLangageId []= $stat->getId();
-        }
-
-        $statId = array_intersect($statColorId, $statAgeId, $statLangageId);
-        $scoreMax = 0;
-        $statScoreMax = null;
-
-        foreach ($statId as $stat) {
+        foreach ($statsIdIntersect as $stat) {
             $score = $em->getRepository('HCocktailBundle:Stat')->find($stat)->getScore();
 
-            if ($score > $scoreMax) {
-                $scoreMax = $score;
+            if ($score > $scoreMax && $score > 0) {
+                $scoreMax     = $score;
                 $statScoreMax = $stat;
             }
         }
 
         if (! $statScoreMax) {
-            $cocktails = $em->getRepository('HCocktailBundle:Cocktail')->findAll();
-            $randomcocktail   = $cocktails[array_rand($cocktails)];
-            $cocktail      = $em->getRepository('HCocktailBundle:Cocktail')->find($randomcocktail->getId());
+            $cocktails      = $em->getRepository('HCocktailBundle:Cocktail')->findAll();
+            $randomCocktail = $cocktails[array_rand($cocktails)];
+            $cocktail       = $em->getRepository('HCocktailBundle:Cocktail')->find($randomcocktail->getId());
         }
         else {
-            $stat = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);
+            $stat     = $em->getRepository('HCocktailBundle:Stat')->find($statScoreMax);
             $cocktail = $em->getRepository('HCocktailBundle:Cocktail')->find($stat->getCocktail()->getId());
         }
 
