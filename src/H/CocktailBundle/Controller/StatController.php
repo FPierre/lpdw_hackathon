@@ -29,7 +29,8 @@ class StatController extends Controller
         ));
 
         $form->add('submit', 'submit', array(
-            'label' => 'envoyer',
+            'label' => 'Envoyer',
+            'attr' => array('class' => "btn btn-me")
         ));
 
         $form->handleRequest($request);
