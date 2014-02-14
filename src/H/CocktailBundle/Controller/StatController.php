@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use H\CocktailBundle\Entity\Stat;
 use H\CocktailBundle\Form\StatType;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 // "/stat"
 class StatController extends Controller
@@ -39,26 +40,86 @@ class StatController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $entity->setApproved(0);
-            $entity->setScore(0);
-
-            // $em->persist($entity);
-            // $em->flush();
-
+        
             $idCocktail = $this->algorithm(
                 $entity->getColor(),
                 $entity->getAge(),
                 $entity->getLangage()
             );
 
+            $cocktail = $em->getRepository('HCocktailBundle:Cocktail')->find($idCocktail);
+
+            $entity->setCocktail($cocktail);
+
+            $statExiste = $em->getRepository('HCocktailBundle:Stat')->findOneBy(array(
+                'color' => $entity->getColor(),
+                'age' => $entity->getAge(),
+                'langage' => $entity->getLangage(),
+                'cocktail' => $entity->getCocktail()
+                ));
+
+            $session = new Session();
+
+            if(!$statExiste){
+                $entity->setScore(1);
+                $em->persist($entity);
+                $session->set('stat', $entity);
+            }else{
+                $statExiste->setScore($statExiste->getScore() + 1);
+                $em->persist($statExiste);
+                $session->set('stat', $statExiste);
+            }
+             $em->flush();
+           
+
             return $this->redirect($this->generateUrl('stat_show', array(
                 'id' => $idCocktail,
             )));
+
         }
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
         );
+    }
+
+    /**
+     * @Route("/like", name="stat_like")
+     * @Template("HCocktailBundle:Stat:index.html.twig") 
+     */
+    public function like(){
+
+        $session = new Session();
+        $em = $this->getDoctrine()->getManager();
+        $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
+        $stat->setApproved($stat->getApproved() + 2);
+        $stat->setScore($stat->getScore() + 2);
+
+        $em->persist($stat);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('index'));
+
+    }
+
+     /**
+     * @Route("/dislike", name="stat_dislike")
+     * @Template("HCocktailBundle:Stat:index.html.twig") 
+     */
+    public function dislike(){
+
+        $session = new Session();
+        $em = $this->getDoctrine()->getManager();
+        $stat = $em->getRepository('HCocktailBundle:Stat')->find($session->get('stat'));
+        $stat->setApproved($stat->getApproved() - 2);
+        $stat->setScore($stat->getScore() - 3);
+
+        $em->persist($stat);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('index'));
+
     }
 
     /**

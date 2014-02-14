@@ -36,7 +36,7 @@ class Stat
     private $score;
 
     /**
-     * @ORM\OneToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="H\CocktailBundle\Entity\Cocktail", cascade={"persist"})
      */
     private $cocktail;
 
